@@ -1,59 +1,173 @@
-# PrometalRewritten
+# Prometal
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.1.
+Website profissional e responsivo para a Prometal — empresa especializada em estruturas metálicas sob medida para obras de grande porte. Desenvolvido com foco em performance, experiência do usuário e geração de leads.
 
-## Development server
+---
 
-To start a local development server, run:
+## 📋 Sobre o Projeto
 
-```bash
-ng serve
+A **Prometal** é uma empresa brasileira com mais de 15 anos de experiência em fabricação de ferragens estruturais e soluções metálicas para construção civil. Este website foi desenvolvido para:
+
+- ✅ Apresentar os serviços e produtos de forma clara e profissional
+- ✅ Gerar leads qualificados através de formulário de orçamento
+- ✅ Demonstrar expertise técnica e experiência em grandes obras
+- ✅ Oferecer experiência móvel otimizada
+- ✅ Melhorar visibilidade online e SEO
+
+---
+
+## 🎯 Produtos & Serviços
+
+| Produto | Descrição |
+|---------|-----------|
+| **Pilar Estrutural** | Pilares metálicos de alta resistência para edificações e grandes estruturas |
+| **Blocos de Sapata** | Blocos de fundação com concreto e ferragem de alta qualidade |
+| **Pré-Laje para Viadutos** | Elementos pré-moldados com engenharia de precisão para cargas pesadas |
+| **Ferragens Sob Medida** | Produção customizada com dimensionamento técnico e rastreabilidade total |
+
+---
+
+## 🛠️ Stack Tecnológico
+
+| Categoria | Tecnologia |
+|-----------|-----------|
+| **Framework** | [Angular 21.2](https://angular.dev/) |
+| **Linguagem** | [TypeScript](https://www.typescriptlang.org/) |
+| **Build Tool** | [@angular/build](https://angular.dev/tools/build) |
+| **Styling** | [Tailwind CSS 4](https://tailwindcss.com/) |
+| **Ícones** | [Lucide Angular](https://lucide.dev/) |
+| **Gerenciador** | [pnpm](https://pnpm.io/) |
+| **Testes** | [Vitest](https://vitest.dev/) |
+
+---
+
+## ✨ Características
+
+- 📱 **Design Responsivo** — Funciona perfeitamente em todos os dispositivos
+- 🎨 **UI Profissional** — Design moderno com paleta de cores da marca (verde escuro + lime accent)
+- ⚡ **Performance Otimizada** — Standalone components, build otimizada
+- 🔍 **SEO Friendly** — Estrutura HTML semântica e meta tags configuradas
+- 🎬 **Animações Suaves** — Scroll animations via IntersectionObserver
+- 📝 **Formulário de Contato** — Interface intuitiva com validação reativa
+- 🧭 **Navegação por Âncoras** — Scroll suave entre seções
+
+---
+
+## 📁 Estrutura do Projeto
+
+```
+src/
+├── app/
+│   ├── app.ts                      # Componente root
+│   ├── app.html                    # Template das seções
+│   ├── app.config.ts               # Configuração standalone
+│   ├── components/
+│   │   ├── navbar/                 # Header fixo com scroll-aware
+│   │   ├── hero/                   # Seção principal com CTA
+│   │   ├── clients/                # Marquee de clientes
+│   │   ├── products/               # Grid de produtos
+│   │   ├── diferenciais/           # Diferenciais da empresa
+│   │   ├── processo/               # Etapas do processo
+│   │   ├── cta-final/              # Formulário de contato
+│   │   └── footer/                 # Rodapé
+│   ├── shared/
+│   │   └── image-with-fallback.component.ts
+│   └── directives/
+│       └── scroll-animate.directive.ts
+├── public/                         # Assets estáticos
+├── styles.css                      # Tailwind + tokens globais
+└── main.ts                         # Bootstrap
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+---
 
-## Code scaffolding
+## 🚀 Instalação e Configuração
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### Pré-requisitos
+
+Certifique-se de ter instalado:
+- [Node.js](https://nodejs.org/) v18 ou superior
+- [pnpm](https://pnpm.io/) v10+
+
+### Instalação
+
+1. **Clone o repositório:**
+   ```bash
+   cd Prometal_rewritten
+   ```
+
+2. **Instale as dependências:**
+   ```bash
+   pnpm install
+   ```
+
+3. **Inicie o servidor de desenvolvimento:**
+   ```bash
+   ng serve
+   ```
+
+   O site estará disponível em `http://localhost:4200`
+
+### Build para Produção
 
 ```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
+# Compila para produção (artifacts em dist/)
 ng build
+
+# Dev build com watch
+ng build --watch
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+---
 
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+## 🔧 Scripts Disponíveis
 
 ```bash
-ng test
+ng serve       # Inicia servidor de desenvolvimento
+ng build       # Compila para produção
+ng build --watch  # Dev build com watch
+ng test        # Executa testes unitários (Vitest)
 ```
 
-## Running end-to-end tests
+---
 
-For end-to-end (e2e) testing, run:
+## 📱 Responsividade
 
-```bash
-ng e2e
-```
+O site foi otimizado para todos os breakpoints:
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+| Dispositivo | Width |
+|-------------|-------|
+| Mobile | 320px – 768px |
+| Tablet | 769px – 1024px |
+| Desktop | 1025px+ |
 
-## Additional Resources
+---
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## 🎨 Design Tokens
+
+Cores e tipografia definidas em `src/styles.css` via `@theme`:
+
+| Token | Valor |
+|-------|-------|
+| `brand-dark` | `#0F3D2E` |
+| `brand-accent` | `#7ED957` |
+| `text-primary` | `#1A1A1A` |
+| `text-secondary` | `#6B7280` |
+| Fonte headings | `Poppins` |
+| Fonte body | `Inter` |
+
+---
+
+## 📧 Suporte e Contato
+
+- **Telefone:** (47) 9 8848-2349
+- **Email:** prometal.comercio@gmail.com
+- **Localização:** São Paulo, SC — Brasil
+
+---
+
+<div align="center">
+
+**Prometal — Estruturas metálicas com precisão industrial**
+
+</div>
