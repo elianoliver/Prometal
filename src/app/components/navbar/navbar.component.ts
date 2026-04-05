@@ -7,9 +7,7 @@ import { Component, HostListener, signal } from '@angular/core';
   template: `
     <header
       class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
-      [class]="scrolled()
-        ? 'bg-white/95 backdrop-blur-md border-b border-black/[0.08]'
-        : ''"
+      [class]="scrolled() ? 'bg-white/95 backdrop-blur-md border-b border-black/[0.08]' : ''"
     >
       <div class="mx-auto flex h-16 items-center justify-between px-6 max-w-[1200px] md:h-20">
         <!-- Logo -->
@@ -60,13 +58,30 @@ import { Component, HostListener, signal } from '@angular/core';
           (click)="toggleMobile()"
         >
           @if (!mobileOpen) {
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="18" x2="21" y2="18" />
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <line x1="3" y1="6" x2="21" y2="6" />
+              <line x1="3" y1="12" x2="21" y2="12" />
+              <line x1="3" y1="18" x2="21" y2="18" />
             </svg>
           }
           @if (mobileOpen) {
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
             </svg>
           }
         </button>
@@ -74,14 +89,15 @@ import { Component, HostListener, signal } from '@angular/core';
 
       <!-- Mobile menu -->
       @if (mobileOpen) {
-        <div class="animate-fade-in overflow-hidden border-b border-[#E5E7EB] bg-white md:hidden">
-          <div class="mx-auto flex max-w-[1200px] flex-col gap-4 px-6 py-4">
+        <div class="animate-fade-in pb-2 px-4 md:hidden">
+          <div
+            class="rounded-2xl backdrop-blur-2xl border border-brand-accent/20 bg-white px-5 py-3 shadow-lg"
+          >
             @for (link of links; track link.href) {
               <a
                 [href]="link.href"
-                class="text-[#1A1A1A] no-underline"
+                class="block rounded-lg py-2.5 font-poppins text-[0.95rem] font-medium text-brand-dark transition-all no-underline hover:bg-brand-accent/10"
                 (click)="closeMobile()"
-                style="font-family: 'Inter', sans-serif; font-weight: 500"
               >
                 {{ link.label }}
               </a>
