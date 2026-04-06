@@ -115,7 +115,7 @@ import { LucideAngularModule, CircleCheckBig, ArrowRight } from 'lucide-angular'
             class="mt-[clamp(1.5rem,4vw,2.5rem)] flex flex-wrap gap-x-[clamp(0.75rem,2vw,1rem)] gap-y-3"
           >
             <a
-              href="https://prometal.com.br/contato"
+              href="#contato"
               class="inline-flex items-center whitespace-nowrap rounded-full bg-brand-accent font-poppins font-semibold text-brand-dark shadow-lg transition-all duration-200 hover:scale-[1.03] hover:brightness-110 no-underline"
               style="
                 padding: clamp(0.625rem, 2vh, 0.875rem) clamp(1.25rem, 3.5vw, 1.75rem);
