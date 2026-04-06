@@ -29,11 +29,21 @@ import { LucideAngularModule, CircleCheckBig, ArrowRight } from 'lucide-angular'
       <!-- Blueprint grid -->
       <div class="absolute inset-0 opacity-[0.04] bg-blueprint"></div>
 
+      <!--
+        Grid de duas colunas no desktop:
+        - Coluna esquerda: 1fr (ocupa o espaço restante)
+        - Coluna direita:  largura fluida com clamp, reserva espaço para a imagem
+        No mobile colapsa para coluna única.
+      -->
       <div
-        class="mx-auto flex w-full max-w-[1200px] justify-between px-6 lg:max-w-6xl lg:pr-[clamp(18rem,32vw,18rem)]"
+        class="
+          relative mx-auto w-full max-w-[1200px] px-6
+          grid grid-cols-1 items-center
+          lg:grid-cols-[1fr_clamp(300px,36vw,460px)]
+        "
       >
         <!-- Left — content -->
-        <div class="w-full lg:w-auto">
+        <div class="py-[clamp(4rem,10vh,6rem)]">
           <!-- Tag -->
           <div
             scrollAnimate="animate-fade-in-up"
@@ -60,8 +70,7 @@ import { LucideAngularModule, CircleCheckBig, ArrowRight } from 'lucide-angular'
           <h1
             scrollAnimate="animate-fade-in-up"
             class="font-poppins font-extrabold leading-[1.1] tracking-tight text-white"
-            style="animation-delay: 0.1s"
-            [style.fontSize]="'clamp(1.875rem, 5vw, 3.8rem)'"
+            style="animation-delay: 0.1s; font-size: clamp(1.875rem, 5vw, 3.8rem)"
           >
             Estruturas metálicas com
             <span class="text-brand-accent">precisão industrial</span>
@@ -82,18 +91,18 @@ import { LucideAngularModule, CircleCheckBig, ArrowRight } from 'lucide-angular'
           <div
             scrollAnimate="animate-fade-in-up"
             style="animation-delay: 0.3s"
-            class="mt-[clamp(1.5rem,3vw,2rem)] flex flex-wrap"
+            class="mt-[clamp(1.5rem,3vw,2rem)] flex flex-wrap gap-y-2"
           >
             @for (b of badges; track b) {
               <div
-                class="flex items-center gap-[clamp(0.25rem,1vw,0.375rem)] text-[clamp(0.75rem,1.8vw,0.85rem)] font-medium font-inter"
-                style="color: rgba(255,255,255,0.85); margin-right: clamp(0.5rem, 2vw, 0.75rem)"
+                class="flex items-center gap-[clamp(0.25rem,1vw,0.375rem)] font-medium font-inter"
+                style="
+                  font-size: clamp(0.75rem, 1.8vw, 0.85rem);
+                  color: rgba(255,255,255,0.85);
+                  margin-right: clamp(0.5rem, 2vw, 0.75rem);
+                "
               >
-                <lucide-angular
-                  [img]="CircleCheckBig"
-                  class="!text-[#7ED957]"
-                  [size]="15"
-                ></lucide-angular>
+                <lucide-angular [img]="CircleCheckBig" class="!text-[#7ED957]" [size]="15" />
                 {{ b }}
               </div>
             }
@@ -103,7 +112,7 @@ import { LucideAngularModule, CircleCheckBig, ArrowRight } from 'lucide-angular'
           <div
             scrollAnimate="animate-fade-in-up"
             style="animation-delay: 0.4s"
-            class="mt-[clamp(1.5rem,4vw,2.5rem)] flex gap-x-[clamp(0.75rem,2vw,1rem)] gap-y-3"
+            class="mt-[clamp(1.5rem,4vw,2.5rem)] flex flex-wrap gap-x-[clamp(0.75rem,2vw,1rem)] gap-y-3"
           >
             <a
               href="https://prometal.com.br/contato"
@@ -114,7 +123,7 @@ import { LucideAngularModule, CircleCheckBig, ArrowRight } from 'lucide-angular'
               "
             >
               Solicitar Orçamento
-              <lucide-angular [img]="ArrowRight" class="ml-2" [size]="16"></lucide-angular>
+              <lucide-angular [img]="ArrowRight" class="ml-2" [size]="16" />
             </a>
             <a
               href="#produtos"
@@ -132,7 +141,7 @@ import { LucideAngularModule, CircleCheckBig, ArrowRight } from 'lucide-angular'
           <div
             scrollAnimate="animate-fade-in-up"
             style="animation-delay: 0.55s"
-            class="lg:text-left text-center mt-6 grid grid-cols-3 gap-x-[clamp(1rem,4vw,1.5rem)] lg:mt-16"
+            class="mt-[clamp(2rem,5vh,4rem)] grid grid-cols-3 gap-x-[clamp(1rem,4vw,1.5rem)] text-center lg:text-left"
           >
             @for (stat of stats; track stat.label) {
               <div>
@@ -144,10 +153,7 @@ import { LucideAngularModule, CircleCheckBig, ArrowRight } from 'lucide-angular'
                 </div>
                 <div
                   class="mt-0.5 font-inter"
-                  style="
-                    font-size: clamp(0.65rem, 1.5vw, 0.85rem);
-                    color: rgba(255,255,255,0.55);
-                  "
+                  style="font-size: clamp(0.65rem, 1.5vw, 0.85rem); color: rgba(255,255,255,0.55)"
                 >
                   {{ stat.label }}
                 </div>
@@ -156,13 +162,23 @@ import { LucideAngularModule, CircleCheckBig, ArrowRight } from 'lucide-angular'
           </div>
         </div>
 
-        <!-- Right — person image (desktop only) -->
-        <div class="absolute bottom-0 right-0 hidden h-[850px] lg:block">
+        <!--
+          Right — coluna reserva espaço no grid.
+          A imagem é absolute dentro dela, ancorada ao bottom,
+          e pode crescer além da coluna sem quebrar o layout.
+        -->
+        <!-- Right — coluna reserva espaço no grid -->
+        <div class="hidden self-stretch lg:block">
           <img
             src="boss5.png"
             alt="Representante Prometal"
-            class="h-full w-auto"
-            style="filter: drop-shadow(0 8px 32px rgba(0,0,0,0.4))"
+            class="absolute bottom-0 right-0"
+            style="
+              height: clamp(500px, 88vh, 860px);
+              width: auto;
+              max-width: none;
+              filter: drop-shadow(0 8px 32px rgba(0,0,0,0.4));
+            "
           />
         </div>
       </div>
