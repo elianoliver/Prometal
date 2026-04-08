@@ -39,11 +39,11 @@ import { LucideAngularModule, CircleCheckBig, ArrowRight } from 'lucide-angular'
         class="
           relative mx-auto w-full max-w-[1200px] px-6
           grid grid-cols-1 items-center
-          lg:grid-cols-[1fr_clamp(300px,36vw,460px)]
+          lg:grid-cols-[1fr_clamp(18.75rem,36vw,28.75rem)]
         "
       >
         <!-- Left — content -->
-        <div class="py-[clamp(4rem,10vh,6rem)]">
+        <div class="py-[clamp(4rem,min(10vh,5vw),6rem)]">
           <!-- Tag -->
           <div
             scrollAnimate="animate-fade-in-up"
@@ -70,7 +70,7 @@ import { LucideAngularModule, CircleCheckBig, ArrowRight } from 'lucide-angular'
           <h1
             scrollAnimate="animate-fade-in-up"
             class="font-poppins font-extrabold leading-[1.1] tracking-tight text-white"
-            style="animation-delay: 0.1s; font-size: clamp(1.875rem, 5vw, 3.8rem)"
+            style="animation-delay: 0.1s; font-size: clamp(1.875rem, min(5vw, 7vh), 3.8rem)"
           >
             Estruturas metálicas com
             <span class="text-brand-accent">precisão industrial</span>
@@ -174,7 +174,8 @@ import { LucideAngularModule, CircleCheckBig, ArrowRight } from 'lucide-angular'
             alt="Representante Prometal"
             class="absolute bottom-0 right-0"
             style="
-              height: clamp(500px, 88vh, 860px);
+              height: clamp(31.25rem, 80vh, 53.75rem);
+              max-height: calc(100vh - 2rem);
               width: auto;
               max-width: none;
               filter: drop-shadow(0 8px 32px rgba(0,0,0,0.4));
