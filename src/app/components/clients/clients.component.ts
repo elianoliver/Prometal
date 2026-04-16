@@ -49,10 +49,10 @@ export class ClientsComponent implements AfterViewInit, OnDestroy {
   clients = [
     { name: 'SOGEL', desc: 'Construtora' },
     { name: 'Raymundi', desc: 'Construções' },
-    { name: 'Engeval', desc: 'Engenharia' },
-    { name: 'ConstroBras', desc: 'Infraestrutura' },
-    { name: 'TechSteel', desc: 'Indústria' },
-    { name: 'ObraMax', desc: 'Construção Civil' },
+    { name: 'Trilha', desc: 'Engenharia e Construções' },
+    { name: 'Fronza', desc: 'Indústria de Artefatos de Cimento' },
+    { name: 'Rio do Sul', desc: 'Concreto e Construções' },
+    { name: 'Construblock', desc: 'Indústria de Artefatos de Cimento' },
   ];
 
   tiled = [...this.clients, ...this.clients, ...this.clients, ...this.clients];

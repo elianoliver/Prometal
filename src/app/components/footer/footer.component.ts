@@ -65,7 +65,7 @@ import { Component } from '@angular/core';
           class="mt-10 flex flex-col items-center justify-between gap-3 border-t border-white/[0.07] pt-6 sm:flex-row"
         >
           <p class="text-[0.8rem] font-inter" style="color: rgba(255,255,255,0.3)">
-            © 2026 Prometal. Todos os direitos reservados.
+            © 2026 Prometal. Desenvolvido com ☕ por <a href="https://elian.dev.br/" target="_blank">elian.dev</a>
           </p>
           <div class="flex items-center gap-1.5">
             <span class="h-2 w-2 rounded-full bg-brand-accent"></span>
@@ -86,5 +86,5 @@ export class FooterComponent {
     { label: 'Contato', href: '#contato' },
   ];
 
-  contactInfo = ['(47) 9 8848-2349', 'prometal.comerio@gmail.com', 'São Paulo, SC — Brasil'];
+  contactInfo = ['(47) 9 8848-2349', 'prometal.comerio@gmail.com', 'Navegantes, SC — Brasil'];
 }

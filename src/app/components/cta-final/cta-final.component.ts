@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { ScrollAnimateDirective } from '../../directives/scroll-animate.directive';
-import { LucideAngularModule, ArrowRight, Phone, Mail } from 'lucide-angular';
+import { LucideAngularModule, ArrowRight, Phone, Mail, MapPin} from 'lucide-angular';
 
 @Component({
   selector: 'app-cta-final',
@@ -60,6 +60,7 @@ import { LucideAngularModule, ArrowRight, Phone, Mail } from 'lucide-angular';
                   >(47) 9 8848-2349</span
                 >
               </a>
+
               <a
                 href="mailto:contato@prometal.com.br"
                 class="flex items-center gap-3 transition-opacity hover:opacity-70 no-underline"
@@ -76,6 +77,26 @@ import { LucideAngularModule, ArrowRight, Phone, Mail } from 'lucide-angular';
                 </div>
                 <span class="text-[0.95rem] font-semibold text-brand-dark font-inter"
                   >prometal.comercio@gmail.com</span
+                >
+              </a>
+
+              <a
+                href="https://maps.app.goo.gl/wFm7ug1FtQU66s4y6"
+                class="flex items-center gap-3 transition-opacity hover:opacity-70 no-underline"
+                target="_blank"
+              >
+                <div
+                  class="flex h-10 w-10 items-center justify-center rounded-full"
+                  style="background: rgba(15,61,46,0.12)"
+                >
+                  <lucide-angular
+                    [img]="MapPinIcon"
+                    [size]="16"
+                    class="!text-[#0F3D2E]"
+                  ></lucide-angular>
+                </div>
+                <span class="text-[0.95rem] font-semibold text-brand-dark font-inter"
+                  >R. José Aldo Scaburi, 2549 - Escalvado</span
                 >
               </a>
             </div>
@@ -99,7 +120,7 @@ import { LucideAngularModule, ArrowRight, Phone, Mail } from 'lucide-angular';
                       type="text"
                       formControlName="nome"
                       placeholder="Seu nome"
-                      class="w-full rounded-lg border-[1.5px] border-gray-200 bg-bg-light px-3 py-2 text-[0.9rem] text-text-primary font-inter outline-none transition-colors duration-200 focus:border-brand-dark focus:ring-1 focus:ring-brand-dark"
+                      class="w-full rounded-lg border-[0.094rem] border-gray-200 bg-bg-light px-3 py-2 text-[0.9rem] text-text-primary font-inter outline-none transition-colors duration-200 focus:border-brand-dark focus:ring-1 focus:ring-brand-dark"
                     />
                   </div>
                   <div>
@@ -111,7 +132,7 @@ import { LucideAngularModule, ArrowRight, Phone, Mail } from 'lucide-angular';
                       type="text"
                       formControlName="empresa"
                       placeholder="Nome da empresa"
-                      class="w-full rounded-lg border-[1.5px] border-gray-200 bg-bg-light px-3 py-2 text-[0.9rem] text-text-primary font-inter outline-none transition-colors duration-200 focus:border-brand-dark focus:ring-1 focus:ring-brand-dark"
+                      class="w-full rounded-lg border-[0.094rem] border-gray-200 bg-bg-light px-3 py-2 text-[0.9rem] text-text-primary font-inter outline-none transition-colors duration-200 focus:border-brand-dark focus:ring-1 focus:ring-brand-dark"
                     />
                   </div>
                 </div>
@@ -124,7 +145,7 @@ import { LucideAngularModule, ArrowRight, Phone, Mail } from 'lucide-angular';
                     type="tel"
                     formControlName="telefone"
                     placeholder="(00) 0 0000-0000"
-                    class="w-full rounded-lg border-[1.5px] border-gray-200 bg-bg-light px-3 py-2 text-[0.9rem] text-text-primary font-inter outline-none transition-colors duration-200 focus:border-brand-dark focus:ring-1 focus:ring-brand-dark"
+                    class="w-full rounded-lg border-[0.094rem] border-gray-200 bg-bg-light px-3 py-2 text-[0.9rem] text-text-primary font-inter outline-none transition-colors duration-200 focus:border-brand-dark focus:ring-1 focus:ring-brand-dark"
                   />
                 </div>
                 <div>
@@ -136,7 +157,7 @@ import { LucideAngularModule, ArrowRight, Phone, Mail } from 'lucide-angular';
                     rows="3"
                     formControlName="descricao"
                     placeholder="Tipo de produto, quantidade estimada, prazo..."
-                    class="w-full rounded-lg border-[1.5px] border-gray-200 bg-bg-light px-3 py-2 text-[0.9rem] text-text-primary font-inter outline-none resize-none transition-colors duration-200 focus:border-brand-dark focus:ring-1 focus:ring-brand-dark"
+                    class="w-full rounded-lg border-[0.094rem] border-gray-200 bg-bg-light px-3 py-2 text-[0.9rem] text-text-primary font-inter outline-none resize-none transition-colors duration-200 focus:border-brand-dark focus:ring-1 focus:ring-brand-dark"
                   ></textarea>
                 </div>
                 <button
@@ -159,6 +180,7 @@ export class CtaFinalComponent {
   EmailIcon = Mail;
   PhoneIcon = Phone;
   arrowRightIcon = ArrowRight;
+  MapPinIcon = MapPin;
 
   form: import('@angular/forms').FormGroup;
 
