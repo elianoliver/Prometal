@@ -2,7 +2,20 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { ScrollAnimateDirective } from '../../directives/scroll-animate.directive';
-import { LucideAngularModule, ArrowRight, Phone, Mail, MapPin} from 'lucide-angular';
+import {
+  LucideAngularModule,
+  ArrowRight,
+  Phone,
+  Mail,
+  MapPin,
+  Loader,
+  CircleCheckBig,
+  CircleAlert,
+} from 'lucide-angular';
+import emailjs from '@emailjs/browser';
+import { environment } from '../../../environments/environment';
+
+type FormStatus = 'idle' | 'loading' | 'success' | 'error';
 
 @Component({
   selector: 'app-cta-final',
@@ -12,9 +25,7 @@ import { LucideAngularModule, ArrowRight, Phone, Mail, MapPin} from 'lucide-angu
     <section id="contato" class="relative overflow-hidden bg-brand-accent py-24">
       <!-- Decorative circles -->
       <div class="absolute -right-24 -top-24 h-96 w-96 rounded-full opacity-20 bg-brand-dark"></div>
-      <div
-        class="absolute -bottom-32 -left-16 h-80 w-80 rounded-full opacity-10 bg-brand-dark"
-      ></div>
+      <div class="absolute -bottom-32 -left-16 h-80 w-80 rounded-full opacity-10 bg-brand-dark"></div>
 
       <div class="relative z-10 mx-auto max-w-[1200px] px-6">
         <div class="grid items-center gap-16 lg:grid-cols-2">
@@ -46,38 +57,20 @@ import { LucideAngularModule, ArrowRight, Phone, Mail, MapPin} from 'lucide-angu
                 target="_blank"
                 class="flex items-center gap-3 transition-opacity hover:opacity-70 no-underline"
               >
-                <div
-                  class="flex h-10 w-10 items-center justify-center rounded-full"
-                  style="background: rgba(15,61,46,0.12)"
-                >
-                  <lucide-angular
-                    [img]="PhoneIcon"
-                    [size]="16"
-                    class="!text-[#0F3D2E]"
-                  ></lucide-angular>
+                <div class="flex h-10 w-10 items-center justify-center rounded-full" style="background: rgba(15,61,46,0.12)">
+                  <lucide-angular [img]="PhoneIcon" [size]="16" class="!text-[#0F3D2E]"></lucide-angular>
                 </div>
-                <span class="text-[0.95rem] font-semibold text-brand-dark font-inter"
-                  >(47) 9 8848-2349</span
-                >
+                <span class="text-[0.95rem] font-semibold text-brand-dark font-inter">(47) 9 8848-2349</span>
               </a>
 
               <a
                 href="mailto:contato@prometal.com.br"
                 class="flex items-center gap-3 transition-opacity hover:opacity-70 no-underline"
               >
-                <div
-                  class="flex h-10 w-10 items-center justify-center rounded-full"
-                  style="background: rgba(15,61,46,0.12)"
-                >
-                  <lucide-angular
-                    [img]="EmailIcon"
-                    [size]="16"
-                    class="!text-[#0F3D2E]"
-                  ></lucide-angular>
+                <div class="flex h-10 w-10 items-center justify-center rounded-full" style="background: rgba(15,61,46,0.12)">
+                  <lucide-angular [img]="EmailIcon" [size]="16" class="!text-[#0F3D2E]"></lucide-angular>
                 </div>
-                <span class="text-[0.95rem] font-semibold text-brand-dark font-inter"
-                  >prometal.comercio@gmail.com</span
-                >
+                <span class="text-[0.95rem] font-semibold text-brand-dark font-inter">prometal.comercio&#64;gmail.com</span>
               </a>
 
               <a
@@ -85,19 +78,10 @@ import { LucideAngularModule, ArrowRight, Phone, Mail, MapPin} from 'lucide-angu
                 class="flex items-center gap-3 transition-opacity hover:opacity-70 no-underline"
                 target="_blank"
               >
-                <div
-                  class="flex h-10 w-10 items-center justify-center rounded-full"
-                  style="background: rgba(15,61,46,0.12)"
-                >
-                  <lucide-angular
-                    [img]="MapPinIcon"
-                    [size]="16"
-                    class="!text-[#0F3D2E]"
-                  ></lucide-angular>
+                <div class="flex h-10 w-10 items-center justify-center rounded-full" style="background: rgba(15,61,46,0.12)">
+                  <lucide-angular [img]="MapPinIcon" [size]="16" class="!text-[#0F3D2E]"></lucide-angular>
                 </div>
-                <span class="text-[0.95rem] font-semibold text-brand-dark font-inter"
-                  >R. José Aldo Scaburi, 2549 - Escalvado</span
-                >
+                <span class="text-[0.95rem] font-semibold text-brand-dark font-inter">R. José Aldo Scaburi, 2549 - Escalvado</span>
               </a>
             </div>
           </div>
@@ -109,66 +93,93 @@ import { LucideAngularModule, ArrowRight, Phone, Mail, MapPin} from 'lucide-angu
                 Solicitar Orçamento
               </h3>
 
-              <form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
-                <div class="grid grid-cols-2 gap-4">
+              <!-- Feedback de sucesso -->
+              @if (status === 'success') {
+                <div class="flex flex-col items-center justify-center gap-3 py-10 text-center">
+                  <lucide-angular [img]="CheckIcon" [size]="40" class="!text-brand-dark"></lucide-angular>
+                  <p class="font-poppins font-bold text-brand-dark text-[1.1rem]">Solicitação enviada!</p>
+                  <p class="font-inter text-[0.9rem]" style="color: rgba(15,61,46,0.7)">
+                    Retornaremos em até 24 horas com prazo e proposta.
+                  </p>
+                  <button
+                    (click)="resetForm()"
+                    class="mt-2 text-[0.85rem] font-semibold font-inter text-brand-dark underline underline-offset-2 cursor-pointer bg-transparent border-none"
+                  >
+                    Enviar outra solicitação
+                  </button>
+                </div>
+              }
+
+              <!-- Formulário -->
+              @if (status !== 'success') {
+                <form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+                  <div class="grid grid-cols-2 gap-4">
+                    <div>
+                      <label class="mb-1.5 block text-[0.82rem] font-medium font-inter text-text-primary">Nome</label>
+                      <input
+                        type="text"
+                        formControlName="nome"
+                        placeholder="Seu nome"
+                        class="w-full rounded-lg border-[0.094rem] border-gray-200 bg-bg-light px-3 py-2 text-[0.9rem] text-text-primary font-inter outline-none transition-colors duration-200 focus:border-brand-dark focus:ring-1 focus:ring-brand-dark"
+                      />
+                    </div>
+                    <div>
+                      <label class="mb-1.5 block text-[0.82rem] font-medium font-inter text-text-primary">Empresa</label>
+                      <input
+                        type="text"
+                        formControlName="empresa"
+                        placeholder="Nome da empresa"
+                        class="w-full rounded-lg border-[0.094rem] border-gray-200 bg-bg-light px-3 py-2 text-[0.9rem] text-text-primary font-inter outline-none transition-colors duration-200 focus:border-brand-dark focus:ring-1 focus:ring-brand-dark"
+                      />
+                    </div>
+                  </div>
+
                   <div>
-                    <label
-                      class="mb-1.5 block text-[0.82rem] font-medium font-inter text-text-primary"
-                      >Nome</label
-                    >
+                    <label class="mb-1.5 block text-[0.82rem] font-medium font-inter text-text-primary">Telefone / WhatsApp</label>
                     <input
-                      type="text"
-                      formControlName="nome"
-                      placeholder="Seu nome"
+                      type="tel"
+                      formControlName="telefone"
+                      placeholder="(00) 0 0000-0000"
                       class="w-full rounded-lg border-[0.094rem] border-gray-200 bg-bg-light px-3 py-2 text-[0.9rem] text-text-primary font-inter outline-none transition-colors duration-200 focus:border-brand-dark focus:ring-1 focus:ring-brand-dark"
                     />
                   </div>
+
                   <div>
-                    <label
-                      class="mb-1.5 block text-[0.82rem] font-medium font-inter text-text-primary"
-                      >Empresa</label
-                    >
-                    <input
-                      type="text"
-                      formControlName="empresa"
-                      placeholder="Nome da empresa"
-                      class="w-full rounded-lg border-[0.094rem] border-gray-200 bg-bg-light px-3 py-2 text-[0.9rem] text-text-primary font-inter outline-none transition-colors duration-200 focus:border-brand-dark focus:ring-1 focus:ring-brand-dark"
-                    />
+                    <label class="mb-1.5 block text-[0.82rem] font-medium font-inter text-text-primary">Descreva o projeto</label>
+                    <textarea
+                      rows="3"
+                      formControlName="descricao"
+                      placeholder="Tipo de produto, quantidade estimada, prazo..."
+                      class="w-full rounded-lg border-[0.094rem] border-gray-200 bg-bg-light px-3 py-2 text-[0.9rem] text-text-primary font-inter outline-none resize-none transition-colors duration-200 focus:border-brand-dark focus:ring-1 focus:ring-brand-dark"
+                    ></textarea>
                   </div>
-                </div>
-                <div>
-                  <label
-                    class="mb-1.5 block text-[0.82rem] font-medium font-inter text-text-primary"
-                    >Telefone / WhatsApp</label
+
+                  <!-- Erro de envio -->
+                  @if (status === 'error') {
+                    <div class="flex items-center gap-2 rounded-lg px-3 py-2.5" style="background: rgba(220,38,38,0.08)">
+                      <lucide-angular [img]="AlertIcon" [size]="15" class="!text-red-600 shrink-0"></lucide-angular>
+                      <p class="text-[0.82rem] font-inter text-red-600">
+                        Falha ao enviar. Tente novamente ou entre em contato pelo WhatsApp.
+                      </p>
+                    </div>
+                  }
+
+                  <button
+                    type="submit"
+                    [disabled]="form.invalid || status === 'loading'"
+                    class="flex items-center justify-center gap-2 rounded-full bg-brand-dark px-7 py-3.5 font-poppins text-[0.95rem] font-bold text-white transition-all duration-200 hover:scale-[1.02] hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100 border-none cursor-pointer"
                   >
-                  <input
-                    type="tel"
-                    formControlName="telefone"
-                    placeholder="(00) 0 0000-0000"
-                    class="w-full rounded-lg border-[0.094rem] border-gray-200 bg-bg-light px-3 py-2 text-[0.9rem] text-text-primary font-inter outline-none transition-colors duration-200 focus:border-brand-dark focus:ring-1 focus:ring-brand-dark"
-                  />
-                </div>
-                <div>
-                  <label
-                    class="mb-1.5 block text-[0.82rem] font-medium font-inter text-text-primary"
-                    >Descreva o projeto</label
-                  >
-                  <textarea
-                    rows="3"
-                    formControlName="descricao"
-                    placeholder="Tipo de produto, quantidade estimada, prazo..."
-                    class="w-full rounded-lg border-[0.094rem] border-gray-200 bg-bg-light px-3 py-2 text-[0.9rem] text-text-primary font-inter outline-none resize-none transition-colors duration-200 focus:border-brand-dark focus:ring-1 focus:ring-brand-dark"
-                  ></textarea>
-                </div>
-                <button
-                  type="submit"
-                  [disabled]="form.invalid"
-                  class="flex items-center justify-center gap-2 rounded-full bg-brand-dark px-7 py-3.5 font-poppins text-[0.95rem] font-bold text-white transition-all duration-200 hover:scale-[1.02] hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100 border-none cursor-pointer"
-                >
-                  Enviar Solicitação
-                  <lucide-angular [img]="arrowRightIcon" [size]="16"></lucide-angular>
-                </button>
-              </form>
+                    @if (status === 'loading') {
+                      <lucide-angular [img]="LoaderIcon" [size]="16" class="animate-spin"></lucide-angular>
+                      Enviando...
+                    } @else {
+                      Enviar Solicitação
+                      <lucide-angular [img]="ArrowRightIcon" [size]="16"></lucide-angular>
+                    }
+                  </button>
+                </form>
+              }
+
             </div>
           </div>
         </div>
@@ -179,8 +190,13 @@ import { LucideAngularModule, ArrowRight, Phone, Mail, MapPin} from 'lucide-angu
 export class CtaFinalComponent {
   EmailIcon = Mail;
   PhoneIcon = Phone;
-  arrowRightIcon = ArrowRight;
+  ArrowRightIcon = ArrowRight;
   MapPinIcon = MapPin;
+  LoaderIcon = Loader;
+  CheckIcon = CircleCheckBig;
+  AlertIcon = CircleAlert;
+
+  status: FormStatus = 'idle';
 
   form: import('@angular/forms').FormGroup;
 
@@ -193,9 +209,32 @@ export class CtaFinalComponent {
     });
   }
 
-  onSubmit() {
-    if (this.form.valid) {
-      console.log('Form submitted:', this.form.value);
+  async onSubmit() {
+    if (this.form.invalid) return;
+
+    this.status = 'loading';
+    const { nome, empresa, telefone, descricao } = this.form.value;
+
+    try {
+      await emailjs.send(
+        environment.emailjs.serviceId,
+        environment.emailjs.templateId,
+        {
+          from_name: nome,
+          empresa: empresa || '—',
+          telefone: telefone || '—',
+          descricao: descricao || '—',
+        },
+        environment.emailjs.publicKey,
+      );
+      this.status = 'success';
+    } catch {
+      this.status = 'error';
     }
+  }
+
+  resetForm() {
+    this.form.reset();
+    this.status = 'idle';
   }
 }
