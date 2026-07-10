@@ -42,30 +42,8 @@ import { LucideAngularModule, CircleCheckBig, ArrowRight } from 'lucide-angular'
           lg:grid-cols-[1fr_clamp(18.75rem,36vw,28.75rem)]
         "
       >
-        <!-- Left — content -->
-        <div class="py-[clamp(4rem,min(10vh,5vw),6rem)]">
-          <!-- Tag -->
-          <div
-            scrollAnimate="animate-fade-in-up"
-            class="mb-[clamp(0.75rem,2vh,1.5rem)] inline-flex items-center gap-1.5 rounded-full"
-            style="
-              padding: clamp(0.25rem, 0.6vh, 0.375rem) clamp(0.625rem, 2vw, 1rem);
-              background: rgba(126,217,87,0.15);
-              border: 1px solid rgba(126,217,87,0.35);
-            "
-          >
-            <span
-              class="rounded-full bg-brand-accent"
-              style="width: clamp(0.375rem, 1vw, 0.5rem); height: clamp(0.375rem, 1vw, 0.5rem)"
-            ></span>
-            <span
-              class="font-medium tracking-[0.05em] font-inter uppercase text-brand-accent"
-              style="font-size: clamp(0.625rem, 1.8vw, 0.8rem)"
-            >
-              Soluções em Ferragens Estruturais
-            </span>
-          </div>
-
+        <!-- Coluna esquerda: texto, CTAs e stats -->
+        <div>
           <!-- Headline -->
           <h1
             scrollAnimate="animate-fade-in-up"
@@ -86,27 +64,6 @@ import { LucideAngularModule, CircleCheckBig, ArrowRight } from 'lucide-angular'
             Soluções estruturais sob medida para obras de grande porte — pilares, blocos, pré-lajes
             e ferragens com o rigor técnico que projetos exigentes demandam.
           </p>
-
-          <!-- Badges -->
-          <div
-            scrollAnimate="animate-fade-in-up"
-            style="animation-delay: 0.3s"
-            class="mt-[clamp(1.5rem,3vw,2rem)] flex flex-wrap gap-y-2"
-          >
-            @for (b of badges; track b) {
-              <div
-                class="flex items-center gap-[clamp(0.25rem,1vw,0.375rem)] font-medium font-inter"
-                style="
-                  font-size: clamp(0.75rem, 1.8vw, 0.85rem);
-                  color: rgba(255,255,255,0.85);
-                  margin-right: clamp(0.5rem, 2vw, 0.75rem);
-                "
-              >
-                <lucide-angular [img]="CircleCheckBig" class="!text-[#7ED957]" [size]="15" />
-                {{ b }}
-              </div>
-            }
-          </div>
 
           <!-- CTAs -->
           <div
@@ -163,26 +120,29 @@ import { LucideAngularModule, CircleCheckBig, ArrowRight } from 'lucide-angular'
         </div>
 
         <!--
-          Right — coluna reserva espaço no grid.
-          A imagem é absolute dentro dela, ancorada ao bottom,
-          e pode crescer além da coluna sem quebrar o layout.
+          Right — apenas reserva espaço no grid pra empurrar o texto pra esquerda.
+          A imagem de verdade NÃO fica aqui dentro — ver abaixo.
         -->
-        <!-- Right — coluna reserva espaço no grid -->
-        <div class="hidden self-stretch lg:block">
-          <img
-            src="boss5.png"
-            alt="Representante Prometal"
-            class="absolute bottom-0 right-0"
-            style="
-              height: clamp(31.25rem, 80vh, 53.75rem);
-              max-height: calc(100vh - 2rem);
-              width: auto;
-              max-width: none;
-              filter: drop-shadow(0 8px 32px rgba(0,0,0,0.4));
-            "
-          />
-        </div>
+        <div class="hidden self-stretch lg:block"></div>
       </div>
+
+      <!--
+        Imagem fora do grid, absolute direto na section.
+        Assim ela pode ser grandona e vazar pra fora da coluna reservada,
+        ficando ancorada no bottom-right sem quebrar o layout do texto.
+      -->
+      <img
+        src="boss5.png"
+        alt="Representante Prometal"
+        class="absolute bottom-0 right-0 hidden lg:block"
+        style="
+          height: clamp(31.25rem, 90vh, 62.5rem);
+          max-height: calc(100vh - 1rem);
+          width: auto;
+          max-width: none;
+          filter: drop-shadow(0 8px 32px rgba(0,0,0,0.4));
+        "
+      />
 
       <!-- Bottom fade -->
       <div
@@ -195,8 +155,6 @@ import { LucideAngularModule, CircleCheckBig, ArrowRight } from 'lucide-angular'
 export class HeroComponent {
   CircleCheckBig = CircleCheckBig;
   ArrowRight = ArrowRight;
-
-  badges = ['Produção sob medida', 'Alta resistência', 'Entrega pontual'];
 
   stats = [
     { value: '+15 anos', label: 'De experiência' },
