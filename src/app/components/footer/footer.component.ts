@@ -86,5 +86,5 @@ export class FooterComponent {
     { label: 'Contato', href: '#contato' },
   ];
 
-  contactInfo = ['(47) 9 8848-2349', 'prometal.comerio@gmail.com', 'Navegantes, SC — Brasil'];
+  contactInfo = ['(47) 9 8848-2349','@prometalferragens', 'prometal.comerio@gmail.com', 'Navegantes, SC — Brasil'];
 }

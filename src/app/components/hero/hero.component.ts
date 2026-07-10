@@ -84,7 +84,7 @@ import { LucideAngularModule, CircleCheckBig, ArrowRight } from 'lucide-angular'
             </a>
             <a
               href="#produtos"
-              class="inline-flex items-center whitespace-nowrap rounded-full border-[1.5px] border-white/40 bg-transparent font-poppins font-semibold text-white transition-all duration-200 hover:scale-[1.03] no-underline"
+              class="inline-flex items-center whitespace-nowrap rounded-full border-[2px] border-white/40 bg-transparent font-poppins font-semibold text-white transition-all duration-200 hover:scale-[1.03] no-underline"
               style="
                 padding: clamp(0.625rem, 2vh, 0.875rem) clamp(1.25rem, 3.5vw, 1.75rem);
                 font-size: clamp(0.8rem, 1.8vw, 0.95rem);
