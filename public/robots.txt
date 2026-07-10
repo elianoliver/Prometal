@@ -1,0 +1,25 @@
+# Robots.txt - Prometal
+# Instrui os motores de busca sobre como indexar o site
+
+# Permissão para todos os bots
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /private/
+Disallow: *.json$
+Disallow: *.css$
+Disallow: *.js$
+
+# Permitir acesso ao sitemap
+Sitemap: https://prometal.com.br/sitemap.xml
+
+# Google específico
+User-agent: Googlebot
+Allow: /
+
+# Bing
+User-agent: Bingbot
+Allow: /
+
+# Velocidade de crawl (Google)
+Crawl-delay: 1
