@@ -91,6 +91,6 @@ export class FooterComponent {
     '(47) 9992-6676',
     '@prometalferragens',
     'prometal.comerio@gmail.com',
-    'Navegantes, SC — Brasil',
+    'Barra Velha, SC — Brasil',
   ];
 }
