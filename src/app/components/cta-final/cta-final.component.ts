@@ -119,7 +119,7 @@ type FormStatus = 'idle' | 'loading' | 'success' | 'error';
 
               <!-- MAPS -->
               <a
-                href="https://maps.app.goo.gl/wFm7ug1FtQU66s4y6"
+                href="https://maps.app.goo.gl/sKHc2jNG2x4tdJHM8"
                 class="flex items-center gap-3 transition-opacity hover:opacity-70 no-underline"
                 target="_blank"
               >
@@ -134,7 +134,7 @@ type FormStatus = 'idle' | 'loading' | 'success' | 'error';
                   ></lucide-angular>
                 </div>
                 <span class="text-[0.95rem] font-semibold text-brand-dark font-inter"
-                  >R. José Aldo Scaburi, 2549 - Escalvado</span
+                  >R. Lucinda Caetano pinheiro, 49 - Itajubá</span
                 >
               </a>
             </div>
